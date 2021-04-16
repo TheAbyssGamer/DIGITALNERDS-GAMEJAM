@@ -20,7 +20,7 @@ public class GunInteract : MonoBehaviour
             Debug.Log("A luat "+gameObject.name);
             
             if(Inventory.holding){
-                Inventory.holding.transform.position = other.transform.position + new Vector3(1f,-0.25f,0f);
+                Inventory.holding.transform.position = other.transform.position + new Vector3(0f,-0.35f,0f);
             }
             Inventory.holding = gameObject;
             transform.position = new Vector3(0f,300f,0f);
