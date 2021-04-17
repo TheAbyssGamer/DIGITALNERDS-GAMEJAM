@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class nomaskAI : MonoBehaviour
 {
-
-    public static bool isAIenabled = true; //very important
+    [SerializeField]
+    private bool isAIenabled = true; //very important
     public float speed = 5f;
     public float jumpHeight = 2f;
     public int damageAmount = 25;
@@ -28,8 +28,10 @@ public class nomaskAI : MonoBehaviour
     void Start(){
         latestDirectionChangeTime = 0f;
         calcuateNewMovementVector();
+        Physics2D.IgnoreLayerCollision(9,9);
     }
     void Update(){
+        Debug.Log(gameObject.name + isAIenabled);
         //the complex Ai that will atack 
         if(isAIenabled)
         {
@@ -74,7 +76,15 @@ public class nomaskAI : MonoBehaviour
         if(distance<0.6f && Time.time > nextAttack){
             nextAttack = Time.time + attackRate;
             HitMe();
+            StartCoroutine(wait());//wait a lil before start runing full speed after an attack (this way will prevent anoying following and make him look smarter)
+            
         }
+    }
+
+    IEnumerator wait(){
+        speed = 0.05f;
+        yield return new WaitForSeconds(1.5f);
+        speed = 0.35f;
     }
     void Idle(){
 
@@ -121,5 +131,12 @@ public class nomaskAI : MonoBehaviour
         playerScript.TakeDamage(damageAmount);
     }
 
-   
+
+
+    //it is necesary because i need to call it from other script
+    //if i were to change only the public static bool isAIenabled it will change all enemys in the level in other words if I "kill" an enemy
+    //Ai will be deactivated for every enemy in the level 
+   public void disableAI(){
+       isAIenabled = false;
+   }
 }
