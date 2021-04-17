@@ -6,10 +6,11 @@ public class GunInteract : MonoBehaviour
 {
     public bool isInteracted = false;
     void Update(){
-        if(Input.GetKey(KeyCode.F)){
+        if(Input.GetKeyDown(KeyCode.F)){
             
             isInteracted = true;
-        }else{
+        }
+        if(Input.GetKeyUp(KeyCode.F)){
             isInteracted = false;
         }
     }
