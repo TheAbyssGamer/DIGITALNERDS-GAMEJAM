@@ -8,15 +8,35 @@ public class Inventory : MonoBehaviour
     public RuntimeAnimatorController FireGunAnim;
     public RuntimeAnimatorController GUN_0Anim;
     public Animator animator;
+    private bool haveGUN_0 = false;
+    private bool haveFIREGUN = false;
+    public GameObject BulletPrefab;
+
     void Update(){
-        Debug.Log("Acu tin "+holding);
+        //Debug.Log("Acu tin "+holding);
         if(holding){
-            if(holding.name == "GUN_0"){
+            if(holding.name == "GUN_0" && haveGUN_0 == false){
                 animator.runtimeAnimatorController = GUN_0Anim as RuntimeAnimatorController;
-            }else if(holding.name == "FIREGUN"){
-                
+
+                if(gameObject.GetComponent<Weapon>()==null){
+                    gameObject.AddComponent<Weapon>();
+                    Weapon weapon = gameObject.GetComponent<Weapon>();
+                    weapon.bulletPrefab = BulletPrefab;
+                }
+                haveFIREGUN = false;
+                haveGUN_0 = true;
+            }else if(holding.name == "FIREGUN" && haveFIREGUN == false){
                 animator.runtimeAnimatorController = FireGunAnim as RuntimeAnimatorController;
+                if(gameObject.GetComponent<Weapon>()==null){
+                    gameObject.AddComponent<Weapon>();
+                    Weapon weapon = gameObject.GetComponent<Weapon>();
+                    weapon.bulletPrefab = BulletPrefab;
+                }
+                haveGUN_0 = false;
+                haveFIREGUN = true;
             }
         }
     }
+
+
 }

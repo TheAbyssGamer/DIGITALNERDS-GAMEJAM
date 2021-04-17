@@ -23,6 +23,7 @@ public class Movement : MonoBehaviour
         
         if(Input.GetAxis("Horizontal")<0){
             spriteRenderer.flipX = true;
+            
         }else if(Input.GetAxis("Horizontal")>0){
             spriteRenderer.flipX = false;
         }
