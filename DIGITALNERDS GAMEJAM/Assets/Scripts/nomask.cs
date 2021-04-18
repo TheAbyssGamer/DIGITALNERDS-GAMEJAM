@@ -10,8 +10,13 @@ public class nomask : MonoBehaviour
     public RuntimeAnimatorController withMaskAnim;
     public GameObject player;
     public nomaskAI aI;
+    
+    public AudioSource audioSource;
+    public AudioClip hitAudio;
 
     public void TakeDamage(int damage){
+        audioSource.clip = hitAudio;
+        audioSource.Play();
         health -= damage;
         if(health <=0){
             Die();
@@ -21,6 +26,7 @@ public class nomask : MonoBehaviour
     void Die(){
         //Instantiate(deathEffect,transform.position,Quaternion.identity);
         //Destroy(gameObject);
+        gameObject.layer = 11;
         nomaskAI AI = gameObject.GetComponent<nomaskAI>();
         //nomaskAI.isAIenabled = false;
         AI.disableAI();

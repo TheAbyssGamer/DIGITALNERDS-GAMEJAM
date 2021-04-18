@@ -8,10 +8,16 @@ public class Bullet : MonoBehaviour
     public int dmgAmount = 30;
     public Rigidbody2D rb;
 
+    public GameObject player{get;set;}
+
     // Start is called before the first frame update
     void Start()
     {
-        SpriteRenderer playerSpriteRenderer = GameObject.FindWithTag("Player").GetComponent<SpriteRenderer>();
+        BulletMove();
+    }
+
+    void BulletMove(){
+        SpriteRenderer playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
         if(playerSpriteRenderer.flipX == false){
             rb.velocity = transform.right * speed;
         }else{
@@ -21,12 +27,16 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hit)
     {
+        //Debug.Log(hit.gameObject.layer);
         nomask nomask = hit.GetComponent<nomask>();
         if(nomask != null){
             nomask.TakeDamage(dmgAmount);
         }
         if(hit.gameObject.tag!="Player"){
-            Destroy(gameObject);
+            if(hit.gameObject.layer != 11){
+                Destroy(gameObject);
+
+            }
         }
         
     }

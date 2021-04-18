@@ -7,6 +7,10 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     public float fireRate = 0.5f;
     private float nextFire = 0.0f;
+    public AudioSource audioSource;
+    public AudioClip shootAudio;
+    public GameObject playerObject;
+
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +21,10 @@ public class Weapon : MonoBehaviour
     }
 
     void Shoot(){
-        Instantiate(bulletPrefab,transform.position,Quaternion.identity);
+        audioSource.clip = shootAudio;
+        audioSource.Play();
+        var bl =Instantiate(bulletPrefab,transform.position,Quaternion.identity);
+        bl.GetComponent<Bullet>().player = playerObject;
         Inventory.Ammo -= 1;
     }
 }

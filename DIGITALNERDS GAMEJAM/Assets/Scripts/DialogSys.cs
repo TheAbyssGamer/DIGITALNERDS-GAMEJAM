@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogSys : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class DialogSys : MonoBehaviour
     
     [SerializeField]
     private int dialogIndex = 0;
+
+    void Start(){
+        if(SceneManager.GetActiveScene().buildIndex == 1){
+            isDialogEnabled = true;
+        }
+    }
     void Update(){
         if(isDialogEnabled){
             EnableDialog();//only visual

@@ -6,7 +6,7 @@ public class GunInteract : MonoBehaviour
 {
     public bool isInteracted = false;
     void Update(){
-        if(Input.GetKeyDown(KeyCode.F)){
+        if(Input.GetKeyDown(KeyCode.J)){
             
             isInteracted = true;
         }
@@ -16,9 +16,9 @@ public class GunInteract : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(isInteracted);
+        //Debug.Log(isInteracted);
         if(other.gameObject.tag == "Player" && isInteracted){
-            Debug.Log("A luat "+gameObject.name);
+            //Debug.Log("A luat "+gameObject.name);
             
             if(Inventory.holding){
                 Inventory.holding.transform.position = other.transform.position + new Vector3(0f,-0.35f,0f);

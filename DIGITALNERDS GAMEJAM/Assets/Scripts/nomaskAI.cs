@@ -31,7 +31,7 @@ public class nomaskAI : MonoBehaviour
         Physics2D.IgnoreLayerCollision(9,9);
     }
     void Update(){
-        Debug.Log(gameObject.name + isAIenabled);
+        //Debug.Log(gameObject.name + isAIenabled);
         //the complex Ai that will atack 
         if(isAIenabled)
         {
@@ -42,12 +42,17 @@ public class nomaskAI : MonoBehaviour
             //rest of the function calcultates rng numbers and radnom direction for the idle state
             directionChangeTime = Random.Range(2f,6f);
             RaycastHit2D hit;
+            RaycastHit2D hitBehind;
             if(spriteRenderer.flipX == false){
                 hit = Physics2D.Raycast(transform.position,Vector2.right,4f,~IgnoreMe);
-                Debug.DrawRay(transform.position,Vector2.right*4f,Color.green);
+                //Debug.DrawRay(transform.position,Vector2.right*4f ,Color.green);
+                hitBehind = Physics2D.Raycast(transform.position,Vector2.left,1f,~IgnoreMe);
+                //Debug.DrawRay(transform.position,Vector2.left*1f,Color.red);
             }else{
                 hit = Physics2D.Raycast(transform.position,Vector2.left,4f,~IgnoreMe);
-                Debug.DrawRay(transform.position,Vector2.left*4f,Color.green);
+                //Debug.DrawRay(transform.position,Vector2.left*4f,Color.green);
+                hitBehind = Physics2D.Raycast(transform.position,Vector2.right,1f,~IgnoreMe);
+                //Debug.DrawRay(transform.position,Vector2.right*1f,Color.red);
             }
             if(isIdle){
                 Idle();
@@ -55,8 +60,19 @@ public class nomaskAI : MonoBehaviour
 
             if(hit){
                 if(hit.collider.gameObject.tag == "Player"){
-                    Debug.Log("ATACK!!!!!");
+                    //Debug.Log("ATACK!!!!!");
                     Attack(hit);
+                }
+            }else{
+                isIdle = true;
+            }
+
+            if(hitBehind){
+                if(hitBehind.collider.gameObject.tag == "Player"){
+                    //Debug.Log("ATACK!!!!!");
+                    //Attack(hitBehind);
+                    spriteRenderer.flipX = !spriteRenderer.flipX;
+                    //transform.Rotate(0f,180f,0f);
                 }
             }else{
                 isIdle = true;
@@ -68,6 +84,7 @@ public class nomaskAI : MonoBehaviour
     }
 
     void Attack(RaycastHit2D hit){
+        //Debug.Log(hit.normal.x);
         animator.SetBool("isIdle",false);
         isIdle = false;
         transform.position += new Vector3((speed *3f) * Time.deltaTime*(-hit.normal.x),0f,0f);
@@ -120,12 +137,12 @@ public class nomaskAI : MonoBehaviour
         if(spriteRenderer.flipX == true){
             ParticleSystem ps = Instantiate(coughSystem,transform.position,Quaternion.Euler(-165f,90f,-90f));
             ps.Play();
-            Destroy(ps,4f);
+            Destroy(ps,2f);
 
         }else{
             ParticleSystem ps = Instantiate(coughSystem,transform.position,Quaternion.Euler(-165f,270f,-90f));
             ps.Play();
-            Destroy(ps,4f);
+            Destroy(ps,2f);
         }
 
         playerScript.TakeDamage(damageAmount);
@@ -139,4 +156,5 @@ public class nomaskAI : MonoBehaviour
    public void disableAI(){
        isAIenabled = false;
    }
+
 }

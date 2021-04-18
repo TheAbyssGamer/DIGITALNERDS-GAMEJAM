@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rb;
 
     public SpriteRenderer spriteRenderer;
+    public AudioClip jumpAudio;
+    public AudioSource audioSource;
 
     // Update is called once per frame
     void Update()
@@ -30,7 +32,9 @@ public class Movement : MonoBehaviour
         //JUMPING
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundDistance,groundMask);//check for ground first
         if(Input.GetKeyDown(KeyCode.Space)&& isGrounded){
-            Debug.Log("Jump");
+            //Debug.Log("Jump");
+            audioSource.clip = jumpAudio;
+            audioSource.Play();
             animator.SetBool("isJumping",true);
             rb.AddForce(new Vector2(0,jumpHeight),ForceMode2D.Impulse);
         }

@@ -14,7 +14,12 @@ public class Inventory : MonoBehaviour
 
     public static int Ammo;
     public TextMeshProUGUI ammoCounter;
+    public AudioSource audioSourceI;
+    public AudioClip shootAudioI;
 
+    void Start(){
+        Ammo = 0;
+    }
     void Update(){
         ammoCounter.text = Ammo.ToString();
         //Debug.Log("Acu tin "+holding);
@@ -26,6 +31,9 @@ public class Inventory : MonoBehaviour
                     gameObject.AddComponent<Weapon>();
                     Weapon weapon = gameObject.GetComponent<Weapon>();
                     weapon.bulletPrefab = BulletPrefab;
+                    weapon.audioSource = audioSourceI;
+                    weapon.shootAudio = shootAudioI;
+                    weapon.playerObject = gameObject;
                 }
                 haveFIREGUN = false;
                 haveGUN_0 = true;
@@ -35,6 +43,9 @@ public class Inventory : MonoBehaviour
                     gameObject.AddComponent<Weapon>();
                     Weapon weapon = gameObject.GetComponent<Weapon>();
                     weapon.bulletPrefab = BulletPrefab;
+                    weapon.audioSource = audioSourceI;
+                    weapon.shootAudio = shootAudioI;
+                    weapon.playerObject = gameObject;
                 }
                 haveGUN_0 = false;
                 haveFIREGUN = true;
