@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && Time.time > nextFire){
+        if(Input.GetButtonDown("Fire1") && Time.time > nextFire && Inventory.Ammo >0){
             nextFire = Time.time + fireRate;
             Shoot();
         }
@@ -18,5 +18,6 @@ public class Weapon : MonoBehaviour
 
     void Shoot(){
         Instantiate(bulletPrefab,transform.position,Quaternion.identity);
+        Inventory.Ammo -= 1;
     }
 }

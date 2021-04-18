@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Inventory : MonoBehaviour
 {
     public static GameObject holding;
@@ -12,7 +12,11 @@ public class Inventory : MonoBehaviour
     private bool haveFIREGUN = false;
     public GameObject BulletPrefab;
 
+    public static int Ammo;
+    public TextMeshProUGUI ammoCounter;
+
     void Update(){
+        ammoCounter.text = Ammo.ToString();
         //Debug.Log("Acu tin "+holding);
         if(holding){
             if(holding.name == "GUN_0" && haveGUN_0 == false){
