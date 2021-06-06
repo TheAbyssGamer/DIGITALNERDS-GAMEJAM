@@ -45,14 +45,14 @@ public class nomaskAI : MonoBehaviour
             RaycastHit2D hitBehind;
             if(spriteRenderer.flipX == false){
                 hit = Physics2D.Raycast(transform.position,Vector2.right,4f,~IgnoreMe);
-                //Debug.DrawRay(transform.position,Vector2.right*4f ,Color.green);
+                Debug.DrawRay(transform.position,Vector2.right*4f ,Color.green);
                 hitBehind = Physics2D.Raycast(transform.position,Vector2.left,1f,~IgnoreMe);
-                //Debug.DrawRay(transform.position,Vector2.left*1f,Color.red);
+                Debug.DrawRay(transform.position,Vector2.left*1f,Color.red);
             }else{
                 hit = Physics2D.Raycast(transform.position,Vector2.left,4f,~IgnoreMe);
-                //Debug.DrawRay(transform.position,Vector2.left*4f,Color.green);
+                Debug.DrawRay(transform.position,Vector2.left*4f,Color.green);
                 hitBehind = Physics2D.Raycast(transform.position,Vector2.right,1f,~IgnoreMe);
-                //Debug.DrawRay(transform.position,Vector2.right*1f,Color.red);
+                Debug.DrawRay(transform.position,Vector2.right*1f,Color.red);
             }
             if(isIdle){
                 Idle();
